@@ -1,0 +1,26 @@
+<section>
+
+    <span class="select-category">
+        <mat-form-field class="mat-select" appearance="fill">
+            <mat-label>Промежуток</mat-label>
+            <mat-select [disabled]="loading" [(ngModel)]="seleted_date" (ngModelChange)="findChart()">
+                <mat-option value="today" [routerLink]="['/chart']" [queryParams]="{selected: 'today'}">Сегодня
+                </mat-option>
+                <mat-option value="yesterday" [routerLink]="['/chart']" [queryParams]="{selected: 'yesterday'}">Вчера
+                </mat-option>
+                <mat-option value="week" [routerLink]="['/chart']" [queryParams]="{selected: 'week'}">Неделю
+                </mat-option>
+                <mat-option value="month" [routerLink]="['/chart']" [queryParams]="{selected: 'month'}">Месяц
+                </mat-option>
+                <mat-option value="year" [routerLink]="['/chart']" [queryParams]="{selected: 'year'}">Год
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </span>
+
+    <div style="width: 90%;"><canvas id="chart"></canvas></div>
+
+</section>
+
+
+<h3 class="pc">Только для PC версии</h3>

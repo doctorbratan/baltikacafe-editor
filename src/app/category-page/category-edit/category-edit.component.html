@@ -1,0 +1,33 @@
+<br>
+<h1>Категория: <span class="_id">{{_id}}</span></h1>
+<section *ngIf="!loading">
+    <form [formGroup]="name" class="settings-edit edit">
+        <h2>Категория</h2>
+        <mat-form-field class="example-full-width">
+            <mat-label>RU</mat-label>
+            <input matInput required formControlName="ru">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>ENG</mat-label>
+            <input matInput  formControlName="en">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>MD</mat-label>
+            <input matInput  formControlName="md">
+        </mat-form-field>
+    </form>
+    <mat-checkbox class="example-margin" color="warn" [(ngModel)]="hide">Скрыть</mat-checkbox>
+    <div class="buttons">
+        <button class="mat-button" *ngIf="!_id" mat-raised-button color="accent" [disabled]="!name.valid || pennding"
+            (click)="create()">Создать</button>
+        &nbsp;
+        <button class="mat-button" *ngIf="_id" mat-raised-button color="primary" [disabled]="!name.valid || pennding"
+            (click)="patch()">Сохранить</button>
+        &nbsp;
+        <button mat-raised-button color="warn" class="mat-button" *ngIf="_id" [disabled]="pennding"
+            (click)="delete()">Удалить</button>
+    </div>
+</section>
+<section *ngIf="loading">
+    <mat-spinner></mat-spinner>
+</section>

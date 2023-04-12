@@ -1,0 +1,49 @@
+<section>
+    <span  *ngIf="!pennding && categories" class="button-span">
+        <button *ngIf="change" mat-raised-button color="primary" class="mat-button" (click)="saveOrder(categories)">Сохранить</button>
+    </span>
+    <table class="demo" *ngIf="!pennding && categories">
+        <tbody>
+        <tr *ngFor="let category of categories; let i = index">
+            <td class="position">
+                <mat-icon *ngIf="i !== 0" 
+                (click)="changePosition(categories, i, i-1)"
+                class="add icon"
+                > expand_less
+                </mat-icon>
+            </td>
+            <td>{{i+1}}</td>
+            <td class="position">
+                <mat-icon *ngIf="i+1 !== categories.length" 
+                (click)="changePosition(categories, i, i+1)"
+                class="add icon"
+                >expand_more
+                </mat-icon>
+            </td>
+            <td
+            class="edit"
+            [ngClass]="{hide: category.hide}"
+            [routerLink]="['/category']"
+            [queryParams]="{_id: category._id}" 
+            >{{category.name.ru}}
+            </td>
+            <td>
+                <mat-icon class="no-hide-icon icon" *ngIf="!category.hide">cloud_queue</mat-icon>
+                <mat-icon class="hide-icon icon" *ngIf="category.hide">cloud_off</mat-icon>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <mat-icon 
+    *ngIf="!pennding && categories"
+    class="add"
+    [routerLink]="['/category']"
+    >add</mat-icon>
+    
+    <ng-container *ngIf="pennding">
+        <br><br>
+        <mat-spinner ></mat-spinner>
+    </ng-container>
+
+</section>

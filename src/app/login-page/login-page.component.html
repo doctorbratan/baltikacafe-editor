@@ -1,0 +1,19 @@
+<section>
+    <form [formGroup]="user" (ngSubmit)="onSubmit()">
+        <img src="../../assets/img/logo_clear.svg" alt="Logo">
+       <mat-form-field appearance="fill" class="input">
+            <mat-label>Логин</mat-label>
+            <input matInput formControlName="login" required> 
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="input">
+            <mat-label>Пароль</mat-label>
+            <input matInput type="password" formControlName="password">
+        </mat-form-field>
+        <button 
+        mat-raised-button 
+        color="accent"
+        type="submit"
+        [disabled]="!user.valid"
+        >Войти</button>
+    </form>
+</section>

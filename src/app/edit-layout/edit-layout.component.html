@@ -1,0 +1,9 @@
+<header>
+    <!-- <img class="img" src="../../assets/img/logo_clear.svg" alt="Logo"> -->
+    <a [routerLink]="['/chart']" routerLinkActive="active">Посещения</a>
+    <a [routerLink]="['/categories']" routerLinkActive="active" >Категории</a>
+    <a [routerLink]="['/positions']" routerLinkActive="active">Позиции</a>
+    <!-- <a [routerLink]="['/telegram']" routerLinkActive="active" class="pc">Telegram</a> -->
+    <mat-icon class="icon" style="color: white; cursor: pointer;" (click)="logout()">exit_to_app</mat-icon>
+</header>
+<router-outlet></router-outlet>

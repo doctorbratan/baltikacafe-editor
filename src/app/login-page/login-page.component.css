@@ -1,0 +1,42 @@
+section {
+    width: 100vw;
+    min-height: 99vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    min-width: 300px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.input {
+    width: 100%;
+}
+
+input {
+    color: white;
+}
+
+@media screen and (max-width: 1023px) {
+
+    section {
+        min-height: 60vh;
+        padding-bottom: 50px;
+        padding-top: 50px;
+    }
+
+    img {
+        height: 200px;
+    }
+
+    form {
+        min-width: 200px;
+    }
+}

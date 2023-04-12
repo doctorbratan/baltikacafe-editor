@@ -1,0 +1,71 @@
+<section>
+
+    <span class="select-category">
+        <mat-form-field class="mat-select" *ngIf="categories" appearance="fill">
+            <mat-label>Категория</mat-label>
+            <mat-select [disabled]="loading" [(ngModel)]="selected_category" (ngModelChange)="getPositions()">
+                <mat-option 
+                *ngFor="let category of categories" 
+                [value]="category._id"
+                (click)="addQueryParams({category: category._id})"
+                >{{category.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </span>
+
+    <span class="button-span">
+        <button *ngIf="change" mat-raised-button color="primary" (click)="saveOrder(positions)">Сохранить</button>
+    </span>
+    <table class="demo" *ngIf="!loading && positions">
+        <tbody>
+        <tr *ngFor="let position of positions; let i = index">
+            <td class="position">
+                <mat-icon *ngIf="i !== 0" 
+                (click)="changePosition(positions, i, i-1)"
+                class="add icon"
+                > expand_less
+                </mat-icon>
+            </td>
+            <td>{{i+1}}</td>
+            <td class="position">
+                <mat-icon *ngIf="i+1 !== positions.length" 
+                (click)="changePosition(positions, i, i+1)"
+                class="add icon"
+                >expand_more
+                </mat-icon>
+            </td>
+            <td
+            class="edit"
+            [ngClass]="{hide: position.hide}"
+            [routerLink]="['/position']"
+            [queryParams]="{_id: position._id}" 
+            >{{position.name.ru}}
+            </td>
+            <td>
+                <ng-container *ngIf="position.cost">{{position.cost}} MDL</ng-container>
+                <ng-container *ngIf="!position.cost">-</ng-container>
+            </td>
+            <td>
+                <mat-icon class="no-hide-icon icon" *ngIf="!position.hide">cloud_queue</mat-icon>
+                <mat-icon class="hide-icon icon" *ngIf="position.hide">cloud_off</mat-icon>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br><br>
+    <mat-icon 
+    *ngIf="!loading && positions"
+    class="add"
+    [routerLink]="['/position']"
+    [queryParams]="{category: selected_category}" 
+    >add</mat-icon>
+
+    <h1 *ngIf="!loading && !selected_category">Выберите категорию!</h1>
+
+    <ng-container *ngIf="loading">
+        <br><br>
+        <mat-spinner ></mat-spinner>
+    </ng-container>
+
+</section>

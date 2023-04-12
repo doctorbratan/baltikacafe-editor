@@ -1,0 +1,150 @@
+<span class="id">
+    <button class="mat-button" mat-stroked-button color="link" [routerLink]="['/positions']"
+        [queryParams]="{category: category}">Назад</button>
+    <h1 *ngIf="_id">Позиция: <span class="green">{{_id}}</span></h1>
+    <h1 *ngIf="!_id" class="green">Создать позицию</h1>
+    <div></div>
+</span>
+<section>
+
+    <div *ngIf="_id" class="image-edit edit">
+        <h2>Изображение</h2>
+        <img *ngIf="Image" class="edited-image" [src]="Image" alt="Logo">
+        <h3 *ngIf="!Image">Отсуствует</h3>
+        &nbsp;
+        <input type="file" class="dn" (change)="onImageUpload($event)" #image>
+        <button
+        mat-raised-button color="primary" 
+        (click)="triggerImageClick()" 
+        [disabled]="pennding"
+        type="button">Загрузить
+        </button>
+    </div>
+
+    <form [formGroup]="name" class="edit">
+
+        <h2>Название</h2>
+        <mat-form-field class="example-full-width">
+            <mat-label>RU</mat-label>
+            <input matInput required formControlName="ru">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>ENG</mat-label>
+            <input matInput  formControlName="en">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>MD</mat-label>
+            <input matInput  formControlName="md">
+        </mat-form-field>
+
+        <br><br>
+
+        <mat-form-field appearance="fill" floatLabel="always">
+            <mat-label>Цена</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="0" [(ngModel)]="cost"
+                [ngModelOptions]="{standalone: true}">
+            <span matTextPrefix>MDL</span>
+        </mat-form-field>
+
+        <br><br>
+
+        <mat-checkbox class="example-margin" color="warn" [(ngModel)]="hide"
+            [ngModelOptions]="{standalone: true}">Скрыть</mat-checkbox>
+
+    </form>
+
+    <div class="edit">
+        <h2>Описание</h2>
+        <mat-form-field class="example-full-width">
+            <mat-label>RU</mat-label>
+            <!-- <input matInput [(ngModel)]="description.ru"> -->
+            <textarea matInput [(ngModel)]="description.ru"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>ENG</mat-label>
+            <!-- <input matInput [(ngModel)]="description.en"> -->
+            <textarea matInput [(ngModel)]="description.en"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>MD</mat-label>
+            <!-- <input matInput [(ngModel)]="description.en"> -->
+            <textarea matInput [(ngModel)]="description.md"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div class="edit">
+        <h2>Масса</h2>
+        <mat-form-field class="example-full-width">
+            <mat-label>RU</mat-label>
+            <input matInput [(ngModel)]="value.ru">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>ENG</mat-label>
+            <input matInput [(ngModel)]="value.en">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>MD</mat-label>
+            <input matInput [(ngModel)]="value.md">
+        </mat-form-field>
+    </div>
+
+
+
+    <div class="buttons">
+        <button class="mat-button" *ngIf="!_id" mat-raised-button color="accent" [disabled]="!name.valid || pennding"
+            (click)="create()">Создать</button>
+        &nbsp;
+        <button class="mat-button" *ngIf="_id" mat-raised-button color="primary" [disabled]="!name.valid || pennding"
+            (click)="patch()">Сохранить</button>
+        &nbsp;
+        <button class="mat-button" mat-raised-button color="warn" *ngIf="_id" [disabled]="pennding"
+            (click)="delete()">Удалить</button>
+    </div>
+
+</section>
+<!-- 
+<section>
+
+    <div class="edit">
+        <h2>Опции</h2>
+        <br><br>
+
+        <mat-checkbox class="example-margin" color="warn" [(ngModel)]="option_required">
+            <ng-container *ngIf="option_required">Автоматически</ng-container>
+            <ng-container *ngIf="!option_required">По выбору</ng-container>
+        </mat-checkbox>
+    </div>
+
+    <div *ngFor="let option of options; let i = index" class="edit">
+        <h4>Опция</h4>
+        <br>
+        <mat-form-field class="example-full-width">
+            <mat-label>RU</mat-label>
+            <input matInput required [(ngModel)]="option.name.ru">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>ENG</mat-label>
+            <input matInput required [(ngModel)]="option.name.en">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>MD</mat-label>
+            <input matInput required [(ngModel)]="option.name.md">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill" floatLabel="always">
+            <mat-label>Цена</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="0" [(ngModel)]="option.cost">
+            <span matTextPrefix>MDL</span>
+        </mat-form-field>
+        <br><br>
+        <span class="option-icons">
+            <mat-icon class="pointer" *ngIf="i !== 0" (click)="changePosition(options, i, i-1)">keyboard_arrow_down</mat-icon>
+            <button mat-button color="warn" (click)="deleteOption(i)">Удалить</button>
+            <mat-icon class="pointer" *ngIf="(i+1) !== options.length" (click)="changePosition(options, i, i+1)">keyboard_arrow_up</mat-icon>
+        </span>
+    </div>
+
+    <mat-icon class="add" (click)="addOption()">add</mat-icon>
+
+</section> 
+-->
